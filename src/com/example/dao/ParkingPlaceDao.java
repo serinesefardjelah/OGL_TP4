@@ -6,9 +6,11 @@ import com.example.entity.ParkingPlace;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ParkingPlaceDao {
-
+    private static final Logger logger = Logger.getLogger(ParkingPlaceDao.class.getName());
     private Connection conn;
 
 
@@ -36,7 +38,7 @@ public class ParkingPlaceDao {
             pstmt.close();
 
         } catch (SQLException se) {
-            se.printStackTrace();
+            logger.log(Level.SEVERE,"SQLException",se);
         }  finally {
             try {
                 if (pstmt != null) pstmt.close();

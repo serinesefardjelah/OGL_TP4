@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.config.AppConfig;
 import com.example.dao.*;
 import com.example.entity.*;
 import com.example.service.ReservationManager;
@@ -11,12 +12,13 @@ import java.text.SimpleDateFormat;
 
 public class Home {
 
-    public static final String USER = "root";
-    public static final String PASSWORD = "root";
     public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     public static final String DB_URL = "jdbc:mysql://localhost:3306/citiesdb";
 
     public static void main(String args[]) throws ParseException {
+        // AppConfig is a util class to retrieve username and password from config.properties (java .env)
+        String USER = AppConfig.getDbUser();
+        String PASSWORD = AppConfig.getDbPassword();
         DatabaseConnection db = new DatabaseConnection(USER, PASSWORD, JDBC_DRIVER, DB_URL);
         Connection connection = db.connect();
         try {

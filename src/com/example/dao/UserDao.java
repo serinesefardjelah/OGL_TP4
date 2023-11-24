@@ -5,9 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class UserDao {
+    private static final Logger logger = Logger.getLogger(UserDao.class.getName());
 
     private Connection conn;
 
@@ -37,7 +40,7 @@ public class UserDao {
             pstmt.close();
 
         } catch (SQLException se) {
-            se.printStackTrace();
+            logger.log(Level.SEVERE,"SQLException",se);
         }  finally {
             try {
                 if (pstmt != null) pstmt.close();
@@ -67,9 +70,9 @@ public class UserDao {
                 }
             }
         } catch (SQLException se) {
-            se.printStackTrace();
+            logger.log(Level.SEVERE,"SQLException",se);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Exception",e);
         }
         return user;
     }

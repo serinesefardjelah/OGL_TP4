@@ -1,13 +1,17 @@
 package com.example.dao;
 
 
+import com.example.config.AppConfig;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DatabaseConnection {
-
+    private static final Logger logger = Logger.getLogger(DatabaseConnection.class.getName());
     private String USER;
     private String PASSWORD;
     private String JDBC_DRIVER;
@@ -27,9 +31,9 @@ public class DatabaseConnection {
             conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
             Class.forName(JDBC_DRIVER);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"SQLException",e);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"ClassNotFoundException",e);
         }
         return conn;
     }
@@ -38,7 +42,7 @@ public class DatabaseConnection {
         try {
             conn.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"SQLException",e);
         }
     }
 
@@ -49,9 +53,9 @@ public class DatabaseConnection {
             stmt.executeUpdate(Scripts.sql);
             stmt.close();
         } catch(SQLException se) {
-            se.printStackTrace();
+            logger.log(Level.SEVERE,"SQLException",se);
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE,"Exception",e);
         } finally {
             try{
                 if(stmt!=null) stmt.close();
