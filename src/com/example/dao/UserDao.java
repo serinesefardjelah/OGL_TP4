@@ -52,33 +52,26 @@ public class UserDao {
 
 
     public User getUserById(int userId) {
-        PreparedStatement pstmt = null;
         User user = null;
-        try {
-            String sql = "SELECT * FROM Users WHERE user_id  = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1,userId);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                user = new User();
-                user.setUserId(rs.getInt("user_id "));
-                user.setName(rs.getString("name"));
-                user.setEmail(rs.getString("email"));
-                user.setPhone(rs.getString("phone"));
+        // try-with-resources bloc to  ensures that the pstmt is automatically closed when the try block is exited.
+        try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Users WHERE user_id  = ?")) {
+            pstmt.setInt(1, userId);
+            // try-with-resources bloc to  ensures that the rs is automatically closed when the try block is exited.
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    user = new User();
+                    user.setUserId(rs.getInt("user_id"));
+                    user.setName(rs.getString("name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPhone(rs.getString("phone"));
+                }
             }
-
-
         } catch (SQLException se) {
             se.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-            } catch (SQLException se2) {
-            }
         }
         return user;
     }
+
 }
