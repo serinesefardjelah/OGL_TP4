@@ -48,9 +48,6 @@ public class ReservationDao {
                     if (pstmt != null) pstmt.close();
 
                 } catch (SQLException se2) {
-                    se2.printStackTrace();
-
-
 
                 }
             }
@@ -61,11 +58,10 @@ public class ReservationDao {
         public Reservation getReservationById(int idReservation) {
             Statement stmt = null;
             Reservation reservation = null;
-            ResultSet rs = null;
             try {
                 String sql = "SELECT * FROM reservations WHERE id_reservation ="+idReservation;
                 stmt = conn.createStatement();
-                rs = stmt.executeQuery(sql);
+                ResultSet rs = stmt.executeQuery(sql);
                 if (rs.next()) {
                     reservation = new Reservation();
                     reservation.setReservationId(rs.getInt("id_reservation"));
@@ -85,18 +81,6 @@ public class ReservationDao {
                 se.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                try {
-                    if (conn != null) conn.close();
-                    if (stmt != null) stmt.close();
-                    if (rs != null) rs.close();
-
-
-                } catch (SQLException se2) {
-                    se2.printStackTrace();
-
-
-                }
             }
             return reservation;
         }
@@ -115,17 +99,6 @@ public class ReservationDao {
             se.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            try {
-                if (pstmt != null) pstmt.close();
-
-
-
-            } catch (SQLException se2) {
-                se2.printStackTrace();
-
-
-            }
         }
 
     }
