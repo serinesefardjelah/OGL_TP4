@@ -1,6 +1,5 @@
 package com.example.dao;
 
-import com.example.config.AppConfig;
 import com.example.entity.ParkingPlace;
 import com.example.entity.Reservation;
 import com.example.entity.ReservationStatus;
@@ -36,7 +35,7 @@ public class ReservationDao {
             pstmt.setDate(5, endTime);
             pstmt.executeUpdate();
         } catch (SQLException se) {
-            logger.log(Level.SEVERE,"SQLException",se);
+            logger.log(Level.SEVERE,"Insertion SQLException",se);
         }
     }
 
@@ -63,9 +62,9 @@ public class ReservationDao {
                 }
             }
         } catch (SQLException se) {
-            logger.log(Level.SEVERE,"SQLException",se);
+            logger.log(Level.SEVERE,"GetUserByID SQLException",se);
         } catch (Exception e) {
-            logger.log(Level.SEVERE,"Exception",e);
+            logger.log(Level.SEVERE,"GetUserByID Exception",e);
         }
         return reservation;
     }
@@ -78,9 +77,9 @@ public class ReservationDao {
             pstmt.setInt(2, idReservation);
             pstmt.executeUpdate();
         } catch (SQLException se) {
-            logger.log(Level.SEVERE,"SQLException",se);
+            logger.log(Level.SEVERE,"updateReservationStatus SQLException",se);
         } catch (Exception e) {
-            logger.log(Level.SEVERE,"Exception",e);
+            logger.log(Level.SEVERE,"updateReservationStatus Exception",e);
         }
     }
 }

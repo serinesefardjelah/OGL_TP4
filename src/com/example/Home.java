@@ -3,23 +3,24 @@ package com.example;
 import com.example.config.AppConfig;
 import com.example.dao.*;
 import com.example.entity.*;
-import com.example.service.ReservationManager;
-
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Home {
+    private static final Logger logger = Logger.getLogger(Home.class.getName());
 
     public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     public static final String DB_URL = "jdbc:mysql://localhost:3306/citiesdb";
 
-    public static void main(String args[]) throws ParseException {
+    public static void main(String[] args) throws ParseException {
         // AppConfig is a util class to retrieve username and password from config.properties (java .env)
-        String USER = AppConfig.getDbUser();
-        String PASSWORD = AppConfig.getDbPassword();
-        DatabaseConnection db = new DatabaseConnection(USER, PASSWORD, JDBC_DRIVER, DB_URL);
+        String user1 = AppConfig.getDbUser();
+        String password = AppConfig.getDbPassword();
+        DatabaseConnection db = new DatabaseConnection(user1, password, JDBC_DRIVER, DB_URL);
         Connection connection = db.connect();
         try {
             if (args.length > 0) {
@@ -65,7 +66,7 @@ public class Home {
             }
         }
         catch (NumberFormatException e) {
-            System.err.println("Arguments" + args[0] + args[2] + " must be an integer.");
+            logger.log(Level.SEVERE,"Arguments" + args[0] + args[2] + " must be an integer.",e);
             System.exit(1);
         }
     }

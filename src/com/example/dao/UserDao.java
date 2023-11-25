@@ -46,7 +46,7 @@ public class UserDao {
                 if (pstmt != null) pstmt.close();
 
             } catch (SQLException se2) {
-
+                logger.log(Level.FINE,"Exception",se2);
             }
         }
 
@@ -59,7 +59,7 @@ public class UserDao {
         // try-with-resources bloc to  ensures that the pstmt is automatically closed when the try block is exited.
         try (PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Users WHERE user_id  = ?")) {
             pstmt.setInt(1, userId);
-            // try-with-resources bloc to  ensures that the rs is automatically closed when the try block is exited.
+            //try-with-resources  to  ensures that the rs is automatically closed at the end of try-block
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     user = new User();

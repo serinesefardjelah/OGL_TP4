@@ -2,7 +2,11 @@ package com.example.dao;
 
 public class Scripts {
 
-    static final String sql = "CREATE TABLE users (\n" +
+    private Scripts(){
+        throw  new IllegalStateException("Utility class");
+    }
+
+    static final String SQL_CREATE_TABLES = "CREATE TABLE users (\n" +
             "    user_id INT PRIMARY KEY AUTO_INCREMENT,\n" +
             "    name VARCHAR(255) NOT NULL,\n" +
             "    email VARCHAR(255) NOT NULL,\n" +

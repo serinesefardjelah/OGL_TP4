@@ -2,7 +2,6 @@ package com.example.service;
 
 import com.example.dao.PaymentDao;
 import com.example.entity.Payment;
-import com.example.entity.Reservation;
 import com.example.entity.ReservationStatus;
 
 public class PaymentManager {

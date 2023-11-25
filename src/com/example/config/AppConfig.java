@@ -6,6 +6,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AppConfig {
+    private AppConfig(){
+        throw new IllegalStateException("AppConfig is a Utility class");
+    }
     private static final Logger logger = Logger.getLogger(AppConfig.class.getName());
 
 

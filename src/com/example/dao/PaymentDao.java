@@ -1,13 +1,7 @@
 package com.example.dao;
 
-import com.example.entity.Reservation;
 import com.example.entity.Payment;
-
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 public class PaymentDao {
 
 
@@ -26,7 +20,7 @@ public class PaymentDao {
 
 
     public void insertPayment(Payment payment) {
-
+        // this method is empty until its implemented
     }
 
 
