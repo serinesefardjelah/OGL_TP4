@@ -38,21 +38,27 @@ public class ReservationDao {
 
     public Reservation getReservationById(int idReservation) {
         Reservation reservation = null;
-        // we used try-with-resources bloc to  ensures that the resources are automatically closed when the try block is exited.
-        try (Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT * FROM reservations WHERE id_reservation =" + idReservation)) {
-            if (rs.next()) {
-                reservation = new Reservation();
-                reservation.setReservationId(rs.getInt("id_reservation"));
-                ParkingPlace parkingPlace = new ParkingPlace();
-                parkingPlace.setIdPlace(rs.getInt("place_id"));
-                User user = new User();
-                user.setUserId(rs.getInt("user_id"));
-                reservation.setParkingPlace(parkingPlace);
-                reservation.setUser(user);
-                reservation.setStatus(ReservationStatus.valueOf(rs.getString("status")));
-                reservation.setStartTime(rs.getDate("start_time"));
-                reservation.setEndTime(rs.getDate("end_time"));
+        try (PreparedStatement pstmt = conn.prepareStatement(
+                "SELECT * FROM reservations WHERE id_reservation =?")) {
+            pstmt.setInt(1, idReservation);
+
+//        // we used try-with-resources bloc to  ensures that the resources are automatically closed when the try block is exited.
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    reservation = new Reservation();
+                    reservation.setReservationId(rs.getInt("id_reservation"));
+                    ParkingPlace parkingPlace = new ParkingPlace();
+                    parkingPlace.setIdPlace(rs.getInt("place_id"));
+                    User user = new User();
+                    user.setUserId(rs.getInt("user_id"));
+                    reservation.setParkingPlace(parkingPlace);
+                    reservation.setUser(user);
+                    reservation.setStatus(ReservationStatus.valueOf(rs.getString("status")));
+                    reservation.setStartTime(rs.getDate("start_time"));
+                    reservation.setEndTime(rs.getDate("end_time"));
+                }
             }
         } catch (SQLException se) {
             se.printStackTrace();
